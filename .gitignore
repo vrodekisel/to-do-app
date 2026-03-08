@@ -1,0 +1,35 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules
+dist
+build
+.env
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+
+# .NET
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# migrations snapshots
+*.db
+
+# frontend build
+frontend/dist
+
+# backend build
+backend/bin
+backend/obj
