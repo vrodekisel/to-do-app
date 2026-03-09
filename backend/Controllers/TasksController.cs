@@ -8,6 +8,7 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
+    // Временный список задач в памяти приложения.
     private static List<TaskItem> tasks = new()
     {
         new TaskItem
@@ -26,12 +27,14 @@ public class TasksController : ControllerBase
         }
     };
 
+    // GET /api/tasks
     [HttpGet]
     public IActionResult GetTasks()
     {
         return Ok(tasks);
     }
 
+    // POST /api/tasks
     [HttpPost]
     public IActionResult CreateTask(CreateTaskDto dto)
     {
@@ -48,6 +51,7 @@ public class TasksController : ControllerBase
         return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
     }
 
+    // PUT /api/tasks/{id}
     [HttpPut("{id}")]
     public IActionResult UpdateTask(int id, UpdateTaskDto dto)
     {
@@ -63,5 +67,20 @@ public class TasksController : ControllerBase
         task.IsCompleted = dto.IsCompleted;
 
         return Ok(task);
+    }
+
+    // DELETE /api/tasks/{id}
+    [HttpDelete("{id}")]
+    public IActionResult DeleteTask(int id)
+    {
+        var task = tasks.FirstOrDefault(t => t.Id == id);
+
+        if (task == null)
+        {
+            return NotFound();
+        }
+
+        tasks.Remove(task);
+        return NoContent();
     }
 }
