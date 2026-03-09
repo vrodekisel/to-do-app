@@ -1,3 +1,4 @@
+using backend.Data;
 using backend.DTOs;
 using backend.Models;
 
@@ -5,47 +6,35 @@ namespace backend.Services;
 
 public class TaskService
 {
-    private readonly List<TaskItem> tasks = new()
-    {
-        new TaskItem
-        {
-            Id = 1,
-            Title = "Laura Palmer case",
-            Description = "Investigate the mysterious murder of Laura Palmer",
-            IsCompleted = false
-        },
-        new TaskItem
-        {
-            Id = 2,
-            Title = "Find a lawyer",
-            Description = "Better call Saul",
-            IsCompleted = false
-        }
-    };
+    private readonly AppDbContext _context;
 
-    public List<TaskItem> GetTasks()
+    public TaskService(AppDbContext context)
     {
-        return tasks;
+        _context = context;
     }
 
-    public TaskItem CreateTask(CreateTaskDto dto)
+    public List<TaskItem> GetAll()
+    {
+        return _context.Tasks.ToList();
+    }
+
+    public TaskItem Create(CreateTaskDto dto)
     {
         var task = new TaskItem
         {
-            Id = tasks.Max(t => t.Id) + 1,
             Title = dto.Title,
-            Description = dto.Description,
             IsCompleted = false
         };
 
-        tasks.Add(task);
+        _context.Tasks.Add(task);
+        _context.SaveChanges();
 
         return task;
     }
 
-    public TaskItem? UpdateTask(int id, UpdateTaskDto dto)
+    public TaskItem? Update(int id, UpdateTaskDto dto)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
 
         if (task == null)
         {
@@ -53,22 +42,24 @@ public class TaskService
         }
 
         task.Title = dto.Title;
-        task.Description = dto.Description;
         task.IsCompleted = dto.IsCompleted;
+
+        _context.SaveChanges();
 
         return task;
     }
 
-    public bool DeleteTask(int id)
+    public bool Delete(int id)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
 
         if (task == null)
         {
             return false;
         }
 
-        tasks.Remove(task);
+        _context.Tasks.Remove(task);
+        _context.SaveChanges();
 
         return true;
     }

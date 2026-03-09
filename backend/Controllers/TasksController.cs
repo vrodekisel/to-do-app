@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
@@ -8,50 +8,44 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    private readonly TaskService taskService;
+    private readonly TaskService _taskService;
 
     public TasksController(TaskService taskService)
     {
-        this.taskService = taskService;
+        _taskService = taskService;
     }
 
-    // GET /api/tasks
     [HttpGet]
-    public IActionResult GetTasks()
+    public IActionResult GetAll()
     {
-        var tasks = taskService.GetTasks();
-        return Ok(tasks);
+        return Ok(_taskService.GetAll());
     }
 
-    // POST /api/tasks
     [HttpPost]
-    public IActionResult CreateTask(CreateTaskDto dto)
+    public IActionResult Create([FromBody] CreateTaskDto dto)
     {
-        var task = taskService.CreateTask(dto);
-        return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
+        return Ok(_taskService.Create(dto));
     }
 
-    // PUT /api/tasks/{id}
     [HttpPut("{id}")]
-    public IActionResult UpdateTask(int id, UpdateTaskDto dto)
+    public IActionResult Update(int id, [FromBody] UpdateTaskDto dto)
     {
-        var task = taskService.UpdateTask(id, dto);
+        var updatedTask = _taskService.Update(id, dto);
 
-        if (task == null)
+        if (updatedTask == null)
         {
             return NotFound();
         }
 
-        return Ok(task);
+        return Ok(updatedTask);
     }
 
-    // PUT /api/tasks/{id}
     [HttpDelete("{id}")]
-    public IActionResult DeleteTask(int id)
+    public IActionResult Delete(int id)
     {
-        var isDeleted = taskService.DeleteTask(id);
+        var deleted = _taskService.Delete(id);
 
-        if (!isDeleted)
+        if (!deleted)
         {
             return NotFound();
         }
