@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using backend.DTOs;
-using backend.Models;
+using backend.Services;
 
 namespace backend.Controllers;
 
@@ -8,29 +8,18 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    // Временный список задач в памяти приложения.
-    private static List<TaskItem> tasks = new()
+    private readonly TaskService taskService;
+
+    public TasksController(TaskService taskService)
     {
-        new TaskItem
-        {
-            Id = 1,
-            Title = "Laura Palmer case",
-            Description = "Investigate the mysterious murder of Laura Palmer",
-            IsCompleted = false
-        },
-        new TaskItem
-        {
-            Id = 2,
-            Title = "Find a lawyer",
-            Description = "Better call Saul",
-            IsCompleted = false
-        }
-    };
+        this.taskService = taskService;
+    }
 
     // GET /api/tasks
     [HttpGet]
     public IActionResult GetTasks()
     {
+        var tasks = taskService.GetTasks();
         return Ok(tasks);
     }
 
@@ -38,16 +27,7 @@ public class TasksController : ControllerBase
     [HttpPost]
     public IActionResult CreateTask(CreateTaskDto dto)
     {
-        var task = new TaskItem
-        {
-            Id = tasks.Max(t => t.Id) + 1,
-            Title = dto.Title,
-            Description = dto.Description,
-            IsCompleted = false
-        };
-
-        tasks.Add(task);
-
+        var task = taskService.CreateTask(dto);
         return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
     }
 
@@ -55,32 +35,27 @@ public class TasksController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateTask(int id, UpdateTaskDto dto)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var task = taskService.UpdateTask(id, dto);
 
         if (task == null)
         {
             return NotFound();
         }
-
-        task.Title = dto.Title;
-        task.Description = dto.Description;
-        task.IsCompleted = dto.IsCompleted;
 
         return Ok(task);
     }
 
-    // DELETE /api/tasks/{id}
+    // PUT /api/tasks/{id}
     [HttpDelete("{id}")]
     public IActionResult DeleteTask(int id)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var isDeleted = taskService.DeleteTask(id);
 
-        if (task == null)
+        if (!isDeleted)
         {
             return NotFound();
         }
 
-        tasks.Remove(task);
         return NoContent();
     }
 }
