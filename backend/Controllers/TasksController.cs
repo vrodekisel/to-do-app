@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using backend.DTOs;
 using backend.Models;
-using System.Data.Common;
-using System.Reflection;
 
 namespace backend.Controllers;
 
@@ -14,15 +13,15 @@ public class TasksController : ControllerBase
         new TaskItem
         {
             Id = 1,
-            Title = "Learn C#",
-            Description = "Understand basic syntax",
+            Title = "Laura Palmer case",
+            Description = "Investigate the mysterious murder of Laura Palmer",
             IsCompleted = false
         },
         new TaskItem
         {
             Id = 2,
-            Title = "Build ToDo API",
-            Description = "Create first backend project",
+            Title = "Find a lawyer",
+            Description = "Better call Saul",
             IsCompleted = false
         }
     };
@@ -47,5 +46,22 @@ public class TasksController : ControllerBase
         tasks.Add(task);
 
         return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateTask(int id, UpdateTaskDto dto)
+    {
+        var task = tasks.FirstOrDefault(t => t.Id == id);
+
+        if (task == null)
+        {
+            return NotFound();
+        }
+
+        task.Title = dto.Title;
+        task.Description = dto.Description;
+        task.IsCompleted = dto.IsCompleted;
+
+        return Ok(task);
     }
 }
