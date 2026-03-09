@@ -25,6 +25,7 @@ public class TaskService
             Title = dto.Title,
             Description = dto.Description,
             IsCompleted = dto.IsCompleted
+            CreatedAt = DateTime.UtcNow
         };
 
         _context.Tasks.Add(task);
