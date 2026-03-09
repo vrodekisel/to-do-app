@@ -23,7 +23,8 @@ public class TaskService
         var task = new TaskItem
         {
             Title = dto.Title,
-            IsCompleted = false
+            Description = dto.Description,
+            IsCompleted = dto.IsCompleted
         };
 
         _context.Tasks.Add(task);
@@ -43,6 +44,7 @@ public class TaskService
 
         task.Title = dto.Title;
         task.IsCompleted = dto.IsCompleted;
+        task.Description = dto.Description;
 
         _context.SaveChanges();
 
