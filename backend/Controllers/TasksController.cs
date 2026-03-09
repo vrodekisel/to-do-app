@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using backend.Models;
+using System.Data.Common;
+using System.Reflection;
 
 namespace backend.Controllers;
 
@@ -29,5 +31,21 @@ public class TasksController : ControllerBase
     public IActionResult GetTasks()
     {
         return Ok(tasks);
+    }
+
+    [HttpPost]
+    public IActionResult CreateTask(CreateTaskDto dto)
+    {
+        var task = new TaskItem
+        {
+            Id = tasks.Max(t => t.Id) + 1,
+            Title = dto.Title,
+            Description = dto.Description,
+            IsCompleted = false
+        };
+
+        tasks.Add(task);
+
+        return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
     }
 }
