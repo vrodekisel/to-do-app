@@ -24,7 +24,7 @@ public class TaskService
         {
             Title = dto.Title,
             Description = dto.Description,
-            IsCompleted = dto.IsCompleted
+            IsCompleted = dto.IsCompleted,
             CreatedAt = DateTime.UtcNow
         };
 
