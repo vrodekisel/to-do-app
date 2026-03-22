@@ -42,7 +42,7 @@ export type UpdateTaskData = {
 };
 
 export async function updateTask(id : number, taskData: UpdateTaskData): Promise<void> {
-    const responce = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`${BASE_URL}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
@@ -50,7 +50,7 @@ export async function updateTask(id : number, taskData: UpdateTaskData): Promise
         body: JSON.stringify(taskData),
     });
 
-    if (!responce.ok) {
+    if (!response.ok) {
         throw new Error('Failed to update');
     }
 }
