@@ -11,6 +11,7 @@ export type TranslationSchema = {
     failedToLoadTasks: string;
     languageSwitcherRu: string;
     languageSwitcherEn: string;
+    deleteButtonLabel: string;
 };
 
 export const translations: Record<Language, TranslationSchema> = {
@@ -25,6 +26,7 @@ export const translations: Record<Language, TranslationSchema> = {
         failedToLoadTasks: 'Не удалось загрузить задачи',
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
+        deleteButtonLabel: 'Удалить',
     },
     en: {
         appTitle: 'to-do app',
@@ -37,5 +39,6 @@ export const translations: Record<Language, TranslationSchema> = {
         failedToLoadTasks: 'Failed to load tasks',
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
+        deleteButtonLabel: 'Delete',
     },
 };

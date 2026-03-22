@@ -5,9 +5,10 @@ import TaskItem from "./TaskItem";
 type TaskListProps = {
     tasks: Task[];
     language: Language;
+    onDelete: (id: number) => void;
 };
 
-function TaskList({ tasks, language }: TaskListProps) {
+function TaskList({ tasks, language, onDelete }: TaskListProps) {
     const t = translations[language];
 
     if (tasks.length === 0) {
@@ -21,6 +22,7 @@ function TaskList({ tasks, language }: TaskListProps) {
                     key={task.id}
                     task={task}
                     language={language}
+                    onDelete={onDelete}
                 />
             ))}
         </ul>

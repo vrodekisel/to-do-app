@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTasks } from "./api/tasksApi";
+import { deleteTask, getTasks } from "./api/tasksApi";
 import type { Task } from "./types/task";
 import { translations, type Language } from "./i18n/translations";
 import TaskList from "./components/TaskList";
@@ -25,7 +25,16 @@ function App() {
             setIsLoading(false);
         }
     }
-    
+
+    async function handleDeleteTask(id: number) {
+        try {
+            await deleteTask(id);
+            await loadTasks();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         loadTasks();
     }, []);
@@ -37,17 +46,20 @@ function App() {
     } else if (hasError) {
         content = <p>{t.failedToLoadTasks}</p>;
     } else {
-        content = <TaskList tasks={tasks} language={language} />;
+        content = (
+            <TaskList
+                tasks={tasks}
+                language={language}
+                onDelete={handleDeleteTask}
+            />
+        );
     }
 
     return (
         <main>
             <h1>{t.appTitle}</h1>
-            <CreateTaskForm
-                language={language}
-                onTaskCreated={loadTasks}
-                />
-                {content}
+            <CreateTaskForm language={language} onTaskCreated={loadTasks} />
+            {content}
         </main>
     );
 }
