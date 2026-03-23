@@ -51,6 +51,7 @@ function App() {
                 tasks={tasks}
                 language={language}
                 onDelete={handleDeleteTask}
+                onTaskUpdated={loadTasks}
             />
         );
     }
