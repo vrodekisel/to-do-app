@@ -13,6 +13,17 @@ type TaskItemProps = {
 function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
     const t = translations[language];
 
+        const formattedCreatedAt = new Date(task.createdAt).toLocaleString(
+        language === "ru" ? "ru-RU" : "en-US",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        }
+    );
+
     const [isCompleted, setIsCompleted] = useState(task.isCompleted);
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(task.title);
@@ -129,7 +140,7 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
                 {isCompleted ? t.statusCompleted : t.statusActive}
             </label>
 
-            <p>{t.createdAtLabel}: {task.createdAt}</p>
+            <p>{t.createdAtLabel}: {formattedCreatedAt}</p>
 
             <button onClick={() => onDelete(task.id)}>
                 {t.deleteButtonLabel}
