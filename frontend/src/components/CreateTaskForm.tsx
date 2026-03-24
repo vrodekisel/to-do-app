@@ -33,22 +33,22 @@ function CreateTaskForm({ language, onTaskCreated }: CreateTaskFormProps) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Create task</h2>
+            <h2>{t.createTaskTitle}</h2>
 
             <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title"
+                placeholder={t.titlePlaceholder}
             />
 
             <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Description"
+                placeholder={t.descriptionPlaceholder}
             />
 
-            <button type="submit">Create</button>
+            <button type="submit">{t.createTaskButton}</button>
         </form>
     );
 }

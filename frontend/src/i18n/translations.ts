@@ -18,6 +18,10 @@ export type TranslationSchema = {
         failedToUpdateTask: string;
         failedToDeleteTask: string;
     };
+    createTaskTitle: string;
+    titlePlaceholder: string;
+    descriptionPlaceholder: string;
+    createTaskButton: string;
 };
 
 export const translations: Record<Language, TranslationSchema> = {
@@ -39,6 +43,10 @@ export const translations: Record<Language, TranslationSchema> = {
             failedToUpdateTask: "Не удалось обновить задачу",
             failedToDeleteTask: "Не удалось удалить задачу",
         },
+        createTaskTitle: "Создать задачу",
+        titlePlaceholder: "Название",
+        descriptionPlaceholder: "Описание",
+        createTaskButton: "Создать",
         
     },
     en: {
@@ -59,5 +67,9 @@ export const translations: Record<Language, TranslationSchema> = {
             failedToUpdateTask: "Failed to update task",
             failedToDeleteTask: "Failed to delete task",
         },
+        createTaskTitle: "Create task",
+        titlePlaceholder: "Title",
+        descriptionPlaceholder: "Description",
+        createTaskButton: "Create",
     },
 };
