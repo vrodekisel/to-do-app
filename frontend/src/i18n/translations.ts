@@ -18,6 +18,8 @@ export type TranslationSchema = {
         failedToUpdateTask: string;
         failedToDeleteTask: string;
         invalidToken: string;
+        failedToRegister: string;
+        failedToLogin: string;
     };
     createTaskTitle: string;
     titlePlaceholder: string;
@@ -44,6 +46,8 @@ export const translations: Record<Language, TranslationSchema> = {
             failedToUpdateTask: "Не удалось обновить задачу",
             failedToDeleteTask: "Не удалось удалить задачу",
             invalidToken: "Неверный или просроченный токен",
+            failedToRegister: "Не удалось зарегистрироваться",
+            failedToLogin: "Неверный логин или пароль",
         },
         createTaskTitle: "Создать задачу",
         titlePlaceholder: "Название",
@@ -69,10 +73,13 @@ export const translations: Record<Language, TranslationSchema> = {
             failedToUpdateTask: "Failed to update task",
             failedToDeleteTask: "Failed to delete task",
             invalidToken: "Invalid or expired token",
+            failedToRegister: "Failed to register",
+            failedToLogin: "Invalid username or password",
         },
         createTaskTitle: "Create task",
         titlePlaceholder: "Title",
         descriptionPlaceholder: "Description",
         createTaskButton: "Create",
+        
     },
 };
