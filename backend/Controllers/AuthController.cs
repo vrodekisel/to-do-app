@@ -41,11 +41,8 @@ namespace backend.Controllers
         {
             try
             {
-                var user = _authService.Login(dto);
-                return Ok(new
-                {
-                    username = user.Username
-                });
+                var result = _authService.Login(dto);
+                return Ok(result);
             }
             catch (InvalidOperationException ex)
             {
