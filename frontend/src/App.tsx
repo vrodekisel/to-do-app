@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { deleteTask, getTasks } from "./api/tasksApi";
-import { loginUser, logoutUser, getCurrentUsername } from "./api/authApi";
+import { loginUser, logoutUser, getCurrentUsername, registerUser } from "./api/authApi";
 import type { Task } from "./types/task";
 import { translations, type Language } from "./i18n/translations";
 import TaskList from "./components/TaskList";
@@ -13,12 +13,23 @@ function App() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
     const [authError, setAuthError] = useState<string | null>(null);
 
+    const [isRegisterMode, setIsRegisterMode] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
     const language: Language = "en";
     const t = translations[language];
+
+    function getLocalizedError(errorKey: string) {
+        if (errorKey.startsWith("errors.")) {
+            const key = errorKey.replace("errors.", "") as keyof typeof t.errors;
+            return t.errors[key] ?? errorKey;
+        }
+
+        return errorKey;
+    }
 
     async function loadTasks() {
         try {
@@ -60,6 +71,22 @@ function App() {
         }
     }
 
+    async function handleRegister() {
+        try {
+            setAuthError(null);
+
+            await registerUser({
+                username,
+                password,
+                repeatPassword,
+            });
+
+            await handleLogin();
+        } catch (err: any) {
+            setAuthError(err.message);
+        }
+    }
+
     function handleLogout() {
         logoutUser();
         setIsAuthenticated(false);
@@ -81,20 +108,45 @@ function App() {
 
                 <div>
                     <input
-                        placeholder="username"
+                        placeholder={t.usernamePlaceholder}
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
+
                     <input
-                        placeholder="password"
+                        placeholder={t.passwordPlaceholder}
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button onClick={handleLogin}>login</button>
+
+                    {isRegisterMode && (
+                        <input
+                            placeholder={t.repeatPasswordPlaceholder}
+                            type="password"
+                            value={repeatPassword}
+                            onChange={(e) => setRepeatPassword(e.target.value)}
+                        />
+                    )}
+
+                    {isRegisterMode ? (
+                        <button onClick={handleRegister}>
+                            {t.registerButton}
+                        </button>
+                    ) : (
+                        <button onClick={handleLogin}>
+                            {t.loginButton}
+                        </button>
+                    )}
+
+                    <button onClick={() => setIsRegisterMode(!isRegisterMode)}>
+                        {isRegisterMode
+                            ? t.switchToLoginButton
+                            : t.switchToRegisterButton}
+                    </button>
                 </div>
 
-                {authError && <p>{authError}</p>}
+                {authError && <p>{getLocalizedError(authError)}</p>}
             </main>
         );
     }
@@ -122,7 +174,7 @@ function App() {
 
             <div>
                 <span>{getCurrentUsername()}</span>
-                <button onClick={handleLogout}>logout</button>
+                <button onClick={handleLogout}>{t.logoutButton}</button>
             </div>
 
             <CreateTaskForm language={language} onTaskCreated={loadTasks} />

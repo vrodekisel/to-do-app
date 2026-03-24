@@ -12,6 +12,17 @@ export type TranslationSchema = {
     languageSwitcherRu: string;
     languageSwitcherEn: string;
     deleteButtonLabel: string;
+
+    authTitle: string;
+    usernamePlaceholder: string;
+    passwordPlaceholder: string;
+    repeatPasswordPlaceholder: string;
+    loginButton: string;
+    registerButton: string;
+    logoutButton: string;
+    switchToLoginButton: string;
+    switchToRegisterButton: string;
+
     errors: {
         failedToFetchTasks: string;
         failedToCreateTask: string;
@@ -25,7 +36,15 @@ export type TranslationSchema = {
     titlePlaceholder: string;
     descriptionPlaceholder: string;
     createTaskButton: string;
-};
+
+    usernameAlreadyExists: string;
+    usernameIsRequired: string;
+    passwordIsRequired: string;
+    passwordTooShort: string;
+    passwordsDoNotMatch: string;
+    passwordMustContainLettersAndDigits: string;
+    invalidUsernameOrPassword: string;
+    };
 
 export const translations: Record<Language, TranslationSchema> = {
     ru: {
@@ -40,6 +59,17 @@ export const translations: Record<Language, TranslationSchema> = {
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
         deleteButtonLabel: 'Удалить',
+
+        authTitle: 'Авторизация',
+        usernamePlaceholder: 'Имя пользователя',
+        passwordPlaceholder: 'Пароль',
+        repeatPasswordPlaceholder: 'Повторите пароль',
+        loginButton: 'Войти',
+        registerButton: 'Зарегистрироваться',
+        logoutButton: 'Выйти',
+        switchToLoginButton: 'У меня уже есть аккаунт',
+        switchToRegisterButton: 'У меня ещё нет аккаунта',
+
         errors: {
             failedToFetchTasks: "Не удалось получить задачи",
             failedToCreateTask: "Не удалось создать задачу",
@@ -53,6 +83,14 @@ export const translations: Record<Language, TranslationSchema> = {
         titlePlaceholder: "Название",
         descriptionPlaceholder: "Описание",
         createTaskButton: "Создать",
+
+        usernameAlreadyExists: "Пользователь с таким именем уже существует",
+        usernameIsRequired: "Введите имя пользователя",
+        passwordIsRequired: "Введите пароль",
+        passwordTooShort: "Пароль должен содержать минимум 8 символов",
+        passwordsDoNotMatch: "Пароли не совпадают",
+        passwordMustContainLettersAndDigits: "Пароль должен содержать буквы и цифры",
+        invalidUsernameOrPassword: "Неверное имя пользователя или пароль",
         
     },
     en: {
@@ -67,6 +105,17 @@ export const translations: Record<Language, TranslationSchema> = {
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
         deleteButtonLabel: 'Delete',
+        
+        authTitle: 'Authorization',
+        usernamePlaceholder: 'Username',
+        passwordPlaceholder: 'Password',
+        repeatPasswordPlaceholder: 'Repeat password',
+        loginButton: 'Login',
+        registerButton: 'Register',
+        logoutButton: 'Logout',
+        switchToLoginButton: 'I already have an account',
+        switchToRegisterButton: "I don't have an account yet",
+
         errors: {
             failedToFetchTasks: "Failed to fetch tasks",
             failedToCreateTask: "Failed to create task",
@@ -80,6 +129,14 @@ export const translations: Record<Language, TranslationSchema> = {
         titlePlaceholder: "Title",
         descriptionPlaceholder: "Description",
         createTaskButton: "Create",
+
+        usernameAlreadyExists: "A user with this username already exists",
+        usernameIsRequired: "Username is required",
+        passwordIsRequired: "Password is required",
+        passwordTooShort: "Password must be at least 8 characters long",
+        passwordsDoNotMatch: "Passwords do not match",
+        passwordMustContainLettersAndDigits: "Password must contain letters and digits",
+        invalidUsernameOrPassword: "Invalid username or password",
         
     },
 };
