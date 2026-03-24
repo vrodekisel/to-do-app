@@ -13,22 +13,24 @@ public class TaskService
         _context = context;
     }
 
-    public List<TaskItem> GetAll()
+    public List<TaskItem> GetAll(int userId)
     {
         return _context.Tasks
-            .OrderBy(t => t.IsCompleted)
-            .ThenByDescending(t => t.CreatedAt)
+            .Where(task => task.UserId == userId)
+            .OrderBy(task => task.IsCompleted)
+            .ThenByDescending(task => task.CreatedAt)
             .ToList();
     }
 
-    public TaskItem Create(CreateTaskDto dto)
+    public TaskItem Create(CreateTaskDto dto, int userId)
     {
         var task = new TaskItem
         {
             Title = dto.Title,
             Description = dto.Description,
             IsCompleted = dto.IsCompleted,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            UserId = userId
         };
 
         _context.Tasks.Add(task);
@@ -37,9 +39,10 @@ public class TaskService
         return task;
     }
 
-    public TaskItem? Update(int id, UpdateTaskDto dto)
+    public TaskItem? Update(int id, UpdateTaskDto dto, int userId)
     {
-        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(task =>
+            task.Id == id && task.UserId == userId);
 
         if (task == null)
         {
@@ -55,9 +58,10 @@ public class TaskService
         return task;
     }
 
-    public bool Delete(int id)
+    public bool Delete(int id, int userId)
     {
-        var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+        var task = _context.Tasks.FirstOrDefault(task =>
+            task.Id == id && task.UserId == userId);
 
         if (task == null)
         {

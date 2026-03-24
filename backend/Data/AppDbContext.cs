@@ -19,6 +19,12 @@ namespace backend.Data
                 .HasIndex(user => user.Username)
                 .IsUnique();
 
+            modelBuilder.Entity<TaskItem>()
+                .HasOne(task => task.User)
+                .WithMany()
+                .HasForeignKey(task => task.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 

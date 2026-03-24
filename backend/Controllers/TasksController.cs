@@ -1,11 +1,14 @@
+using System.Security.Claims;
 using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class TasksController : ControllerBase
 {
     private readonly TaskService _taskService;
@@ -18,19 +21,49 @@ public class TasksController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok(_taskService.GetAll());
+        var userId = GetCurrentUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new
+            {
+                error = "errors.invalidToken"
+            });
+        }
+
+        return Ok(_taskService.GetAll(userId.Value));
     }
 
     [HttpPost]
     public IActionResult Create([FromBody] CreateTaskDto dto)
     {
-        return Ok(_taskService.Create(dto));
+        var userId = GetCurrentUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new
+            {
+                error = "errors.invalidToken"
+            });
+        }
+
+        return Ok(_taskService.Create(dto, userId.Value));
     }
 
     [HttpPut("{id}")]
     public IActionResult Update(int id, [FromBody] UpdateTaskDto dto)
     {
-        var updatedTask = _taskService.Update(id, dto);
+        var userId = GetCurrentUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new
+            {
+                error = "errors.invalidToken"
+            });
+        }
+
+        var updatedTask = _taskService.Update(id, dto, userId.Value);
 
         if (updatedTask == null)
         {
@@ -43,7 +76,17 @@ public class TasksController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var deleted = _taskService.Delete(id);
+        var userId = GetCurrentUserId();
+
+        if (userId == null)
+        {
+            return Unauthorized(new
+            {
+                error = "errors.invalidToken"
+            });
+        }
+
+        var deleted = _taskService.Delete(id, userId.Value);
 
         if (!deleted)
         {
@@ -51,5 +94,17 @@ public class TasksController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    private int? GetCurrentUserId()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (!int.TryParse(userIdClaim, out var userId))
+        {
+            return null;
+        }
+
+        return userId;
     }
 }

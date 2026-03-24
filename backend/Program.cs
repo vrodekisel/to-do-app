@@ -4,12 +4,33 @@ using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "backend",
+        Version = "v1"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
+
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+    });
+});
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<TaskService>();
