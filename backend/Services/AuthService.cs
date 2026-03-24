@@ -46,7 +46,7 @@ public class AuthService
         }
 
         var userExists = _context.Users
-            .Any(user => user.Username.ToLower() == normalizedUsername.ToLower());
+            .Any(user => user.Username == normalizedUsername);
 
         if (userExists)
         {
@@ -63,6 +63,43 @@ public class AuthService
 
         _context.Users.Add(user);
         _context.SaveChanges();
+
+        return user;
+    }
+
+    public User Login(LoginUserDto dto)
+    {
+        var normalizedUsername = dto.Username.Trim();
+
+        if (string.IsNullOrWhiteSpace(normalizedUsername))
+        {
+            throw new InvalidOperationException("errors.usernameIsRequired");
+        }
+
+        if (string.IsNullOrWhiteSpace(dto.Password))
+        {
+            throw new InvalidOperationException("errors.passwordIsRequired");
+        }
+
+        var user = _context.Users
+            .FirstOrDefault(user => user.Username == normalizedUsername);
+
+        if (user is null)
+        {
+            throw new InvalidOperationException("errors.invalidUsernameOrPassword");
+        }
+
+        var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(
+            user,
+            user.PasswordHash,
+            dto.Password
+        );
+
+        if (passwordVerificationResult == PasswordVerificationResult.Failed)
+        {
+            throw new InvalidOperationException("errors.invalidUsernameOrPassword");
+        }
+
         return user;
     }
 
@@ -70,6 +107,7 @@ public class AuthService
     {
         var hasLetter = password.Any(char.IsLetter);
         var hasDigit = password.Any(char.IsDigit);
+
         return hasLetter && hasDigit;
     }
 }
