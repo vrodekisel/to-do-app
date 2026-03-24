@@ -12,6 +12,12 @@ export type TranslationSchema = {
     languageSwitcherRu: string;
     languageSwitcherEn: string;
     deleteButtonLabel: string;
+    errors: {
+        failedToFetchTasks: string;
+        failedToCreateTask: string;
+        failedToUpdateTask: string;
+        failedToDeleteTask: string;
+    };
 };
 
 export const translations: Record<Language, TranslationSchema> = {
@@ -27,6 +33,13 @@ export const translations: Record<Language, TranslationSchema> = {
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
         deleteButtonLabel: 'Удалить',
+        errors: {
+            failedToFetchTasks: "Не удалось получить задачи",
+            failedToCreateTask: "Не удалось создать задачу",
+            failedToUpdateTask: "Не удалось обновить задачу",
+            failedToDeleteTask: "Не удалось удалить задачу",
+        },
+        
     },
     en: {
         appTitle: 'to-do app',
@@ -40,5 +53,11 @@ export const translations: Record<Language, TranslationSchema> = {
         languageSwitcherRu: 'RU',
         languageSwitcherEn: 'EN',
         deleteButtonLabel: 'Delete',
+        errors: {
+            failedToFetchTasks: "Failed to fetch tasks",
+            failedToCreateTask: "Failed to create task",
+            failedToUpdateTask: "Failed to update task",
+            failedToDeleteTask: "Failed to delete task",
+        },
     },
 };

@@ -14,6 +14,7 @@ function App() {
     const t = translations[language];
 
     async function loadTasks() {
+        
         try {
             setHasError(false);
             const tasksFromApi = await getTasks();

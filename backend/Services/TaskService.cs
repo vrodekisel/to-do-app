@@ -15,7 +15,10 @@ public class TaskService
 
     public List<TaskItem> GetAll()
     {
-        return _context.Tasks.ToList();
+        return _context.Tasks
+            .OrderBy(t => t.IsCompleted)
+            .ThenByDescending(t => t.CreatedAt)
+            .ToList();
     }
 
     public TaskItem Create(CreateTaskDto dto)
