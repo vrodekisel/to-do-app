@@ -19,15 +19,19 @@ function App() {
     const [isRegisterMode, setIsRegisterMode] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
-    const language: Language = "en";
+    const [language, setLanguage] = useState<Language>("en");
+
     const t = translations[language];
+
+    function toggleLanguage() {
+        setLanguage((prev) => (prev === "en" ? "ru" : "en"));
+    }
 
     function getLocalizedError(errorKey: string) {
         if (errorKey.startsWith("errors.")) {
             const key = errorKey.replace("errors.", "") as keyof typeof t.errors;
             return t.errors[key] ?? errorKey;
         }
-
         return errorKey;
     }
 
@@ -144,6 +148,10 @@ function App() {
                             ? t.switchToLoginButton
                             : t.switchToRegisterButton}
                     </button>
+
+                    <button onClick={toggleLanguage}>
+                        {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
+                    </button>
                 </div>
 
                 {authError && <p>{getLocalizedError(authError)}</p>}
@@ -175,6 +183,9 @@ function App() {
             <div>
                 <span>{getCurrentUsername()}</span>
                 <button onClick={handleLogout}>{t.logoutButton}</button>
+                <button onClick={toggleLanguage}>
+                    {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
+                </button>
             </div>
 
             <CreateTaskForm language={language} onTaskCreated={loadTasks} />

@@ -44,6 +44,7 @@ export type TranslationSchema = {
     passwordsDoNotMatch: string;
     passwordMustContainLettersAndDigits: string;
     invalidUsernameOrPassword: string;
+
     };
 
 export const translations: Record<Language, TranslationSchema> = {
@@ -91,7 +92,6 @@ export const translations: Record<Language, TranslationSchema> = {
         passwordsDoNotMatch: "Пароли не совпадают",
         passwordMustContainLettersAndDigits: "Пароль должен содержать буквы и цифры",
         invalidUsernameOrPassword: "Неверное имя пользователя или пароль",
-        
     },
     en: {
         appTitle: 'to-do app',
@@ -137,6 +137,5 @@ export const translations: Record<Language, TranslationSchema> = {
         passwordsDoNotMatch: "Passwords do not match",
         passwordMustContainLettersAndDigits: "Password must contain letters and digits",
         invalidUsernameOrPassword: "Invalid username or password",
-        
     },
 };
