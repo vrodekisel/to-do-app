@@ -13,7 +13,7 @@ type TaskItemProps = {
 function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
     const t = translations[language];
 
-        const formattedCreatedAt = new Date(task.createdAt).toLocaleString(
+    const formattedCreatedAt = new Date(task.createdAt).toLocaleString(
         language === "ru" ? "ru-RU" : "en-US",
         {
             day: "2-digit",
@@ -69,7 +69,7 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
             await updateTask(task.id, {
                 title: editedTitle.trim(),
                 description: editedDescription.trim(),
-                isCompleted: isCompleted,
+                isCompleted,
             });
 
             setIsEditing(false);
@@ -87,20 +87,20 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
                         type="text"
                         value={editedTitle}
                         onChange={(event) => setEditedTitle(event.target.value)}
-                        placeholder="Task title"
+                        placeholder={t.editTitlePlaceholder}
                     />
 
                     <textarea
                         value={editedDescription}
                         onChange={(event) => setEditedDescription(event.target.value)}
-                        placeholder="Task description"
+                        placeholder={t.editDescriptionPlaceholder}
                     />
 
                     <button
                         type="button"
                         onClick={handleSaveEditing}
-                        title="Save"
-                        aria-label="Save"
+                        title={t.saveTaskButtonLabel}
+                        aria-label={t.saveTaskButtonLabel}
                     >
                         💾
                     </button>
@@ -108,8 +108,8 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
                     <button
                         type="button"
                         onClick={handleCancelEditing}
-                        title="Cancel"
-                        aria-label="Cancel"
+                        title={t.cancelEditButtonLabel}
+                        aria-label={t.cancelEditButtonLabel}
                     >
                         ✖
                     </button>
@@ -122,8 +122,8 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
                     <button
                         type="button"
                         onClick={handleStartEditing}
-                        title="Edit"
-                        aria-label="Edit"
+                        title={t.editTaskButtonLabel}
+                        aria-label={t.editTaskButtonLabel}
                     >
                         ✏️
                     </button>
@@ -136,8 +136,7 @@ function TaskItem({ task, language, onDelete, onTaskUpdated }: TaskItemProps) {
                     checked={isCompleted}
                     onChange={handleToggleCompleted}
                 />
-                {t.statusLabel}:{" "}
-                {isCompleted ? t.statusCompleted : t.statusActive}
+                {t.statusLabel}: {isCompleted ? t.statusCompleted : t.statusActive}
             </label>
 
             <p>{t.createdAtLabel}: {formattedCreatedAt}</p>
