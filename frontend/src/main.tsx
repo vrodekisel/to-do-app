@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom/client';
 import App from './App';
+import './styles/buttons.css';
 
 const rootElement = document.getElementById('root');
 

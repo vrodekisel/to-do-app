@@ -42,16 +42,16 @@ export type TranslationSchema = {
         invalidToken: string;
         failedToRegister: string;
         failedToLogin: string;
-    };
 
-    usernameAlreadyExists: string;
-    usernameIsRequired: string;
-    passwordIsRequired: string;
-    passwordTooShort: string;
-    passwordsDoNotMatch: string;
-    passwordMustContainLettersAndDigits: string;
-    invalidUsernameOrPassword: string;
-    TitleRequired: string;
+        usernameAlreadyExists: string;
+        usernameIsRequired: string;
+        passwordIsRequired: string;
+        passwordTooShort: string;
+        passwordsDoNotMatch: string;
+        passwordMustContainLettersAndDigits: string;
+        invalidUsernameOrPassword: string;
+        TitleRequired: string;
+    };
 };
 
 export const translations: Record<Language, TranslationSchema> = {
@@ -97,16 +97,16 @@ export const translations: Record<Language, TranslationSchema> = {
             invalidToken: "Неверный или просроченный токен",
             failedToRegister: "Не удалось зарегистрироваться",
             failedToLogin: "Неверный логин или пароль",
-        },
 
-        usernameAlreadyExists: "Пользователь с таким именем уже существует",
-        usernameIsRequired: "Введите имя пользователя",
-        passwordIsRequired: "Введите пароль",
-        passwordTooShort: "Пароль должен содержать минимум 8 символов",
-        passwordsDoNotMatch: "Пароли не совпадают",
-        passwordMustContainLettersAndDigits: "Пароль должен содержать буквы и цифры",
-        invalidUsernameOrPassword: "Неверное имя пользователя или пароль",
-        TitleRequired: "Введите заголовок",
+            usernameAlreadyExists: "Пользователь с таким именем уже существует",
+            usernameIsRequired: "Введите имя пользователя",
+            passwordIsRequired: "Введите пароль",
+            passwordTooShort: "Пароль должен содержать минимум 8 символов",
+            passwordsDoNotMatch: "Пароли не совпадают",
+            passwordMustContainLettersAndDigits: "Пароль должен содержать буквы и цифры",
+            invalidUsernameOrPassword: "Неверное имя пользователя или пароль",
+            TitleRequired: "Введите заголовок",
+        },
     },
 
     en: {
@@ -151,15 +151,15 @@ export const translations: Record<Language, TranslationSchema> = {
             invalidToken: "Invalid or expired token",
             failedToRegister: "Failed to register",
             failedToLogin: "Invalid username or password",
-        },
 
-        usernameAlreadyExists: "A user with this username already exists",
-        usernameIsRequired: "Username is required",
-        passwordIsRequired: "Password is required",
-        passwordTooShort: "Password must be at least 8 characters long",
-        passwordsDoNotMatch: "Passwords do not match",
-        passwordMustContainLettersAndDigits: "Password must contain letters and digits",
-        invalidUsernameOrPassword: "Invalid username or password",
-        TitleRequired: "Title is required",
+            usernameAlreadyExists: "A user with this username already exists",
+            usernameIsRequired: "Username is required",
+            passwordIsRequired: "Password is required",
+            passwordTooShort: "Password must be at least 8 characters long",
+            passwordsDoNotMatch: "Passwords do not match",
+            passwordMustContainLettersAndDigits: "Password must contain letters and digits",
+            invalidUsernameOrPassword: "Invalid username or password",
+            TitleRequired: "Title is required",
+        },
     },
 };

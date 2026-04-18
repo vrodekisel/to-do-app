@@ -134,22 +134,34 @@ function App() {
                     )}
 
                     {isRegisterMode ? (
-                        <button onClick={handleRegister}>
+                        <button
+                            className="retro-text-button retro-text-button--auth"
+                            onClick={handleRegister}
+                        >
                             {t.registerButton}
                         </button>
                     ) : (
-                        <button onClick={handleLogin}>
+                        <button
+                            className="retro-text-button retro-text-button--auth"
+                            onClick={handleLogin}
+                        >
                             {t.loginButton}
                         </button>
                     )}
 
-                    <button onClick={() => setIsRegisterMode(!isRegisterMode)}>
+                    <button
+                        className="retro-text-button retro-text-button--secondary retro-text-button--auth"
+                        onClick={() => setIsRegisterMode(!isRegisterMode)}
+                    >
                         {isRegisterMode
                             ? t.switchToLoginButton
                             : t.switchToRegisterButton}
                     </button>
 
-                    <button onClick={toggleLanguage}>
+                    <button
+                        className="retro-text-button retro-text-button--lang"
+                        onClick={toggleLanguage}
+                    >
                         {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
                     </button>
                 </div>
@@ -182,8 +194,18 @@ function App() {
 
             <div>
                 <span>{getCurrentUsername()}</span>
-                <button onClick={handleLogout}>{t.logoutButton}</button>
-                <button onClick={toggleLanguage}>
+
+                <button
+                    className="retro-text-button retro-text-button--danger retro-text-button--auth"
+                    onClick={handleLogout}
+                >
+                    {t.logoutButton}
+                </button>
+
+                <button
+                    className="retro-text-button retro-text-button--lang"
+                    onClick={toggleLanguage}
+                >
                     {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
                 </button>
             </div>

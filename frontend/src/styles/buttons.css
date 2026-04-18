@@ -1,0 +1,169 @@
+/* ===== TEXT RETRO BUTTONS ONLY ===== */
+
+:root {
+  --retro-white: #f6f4ef;
+  --retro-black: #050505;
+
+  --retro-blue: #0b7bdc;
+  --retro-blue-light: #56bbff;
+  --retro-blue-dark: #064b93;
+
+  --retro-red: #e53945;
+  --retro-red-light: #ff7a82;
+  --retro-red-dark: #8f1d2b;
+
+  --retro-violet: #5c4db3;
+}
+
+.retro-text-button {
+  appearance: none;
+  border: 2px solid var(--retro-black);
+  background: var(--retro-blue);
+  color: var(--retro-white);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 64px;
+  width: auto;
+  padding: 0 12px;
+
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow:
+    inset 1px 1px 0 var(--retro-blue-light),
+    inset -1px -1px 0 var(--retro-blue-dark);
+
+  image-rendering: pixelated;
+}
+
+.retro-text-button:hover {
+  background: #1690f2;
+  box-shadow:
+    inset 2px 2px 0 #8dd8ff,
+    inset -2px -2px 0 #043d77;
+}
+
+.retro-text-button:active {
+  background: var(--retro-blue-dark);
+  box-shadow:
+    inset 2px 2px 0 #043d77,
+    inset -2px -2px 0 #8dd8ff;
+  transform: translate(1px, 1px);
+}
+
+.retro-text-button:focus-visible {
+  outline: 2px solid var(--retro-black);
+  outline-offset: 2px;
+}
+
+.retro-text-button--auth {
+  width: 140px;
+  min-width: 140px;
+}
+
+.retro-text-button--secondary {
+  background: var(--retro-blue);
+  color: var(--retro-white);
+  box-shadow:
+    inset 2px 2px 0 var(--retro-blue-light),
+    inset -2px -2px 0 var(--retro-blue-dark);
+
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+  padding: 0 9px;
+}
+
+.retro-text-button--secondary:hover {
+  background: #1690f2;
+  box-shadow:
+    inset 2px 2px 0 #8dd8ff,
+    inset -2px -2px 0 #043d77;
+}
+
+.retro-text-button--secondary:active {
+  background: var(--retro-blue-dark);
+  box-shadow:
+    inset 2px 2px 0 #043d77,
+    inset -2px -2px 0 #8dd8ff;
+}
+
+.retro-text-button--danger {
+  background: var(--retro-red);
+  color: var(--retro-white);
+  box-shadow:
+    inset 2px 2px 0 var(--retro-red-light),
+    inset -2px -2px 0 var(--retro-red-dark);
+
+  width: 140px;
+  min-width: 140px;
+}
+
+.retro-text-button--danger:hover {
+  background: #f14855;
+  box-shadow:
+    inset 2px 2px 0 #ff9ca2,
+    inset -2px -2px 0 #741321;
+}
+
+.retro-text-button--danger:active {
+  background: var(--retro-red-dark);
+  box-shadow:
+    inset 2px 2px 0 #741321,
+    inset -2px -2px 0 #ff9ca2;
+}
+
+.retro-text-button--lang {
+  background: var(--retro-white);
+  color: var(--retro-black);
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #b8b0a7;
+
+  width: 60px;
+  min-width: 60px;
+  padding: 0 32px;
+}
+
+.retro-text-button--lang:hover {
+  background: #fffdf8;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #9c948b;
+}
+
+.retro-text-button--lang:active {
+  background: #ddd8d1;
+  box-shadow:
+    inset 2px 2px 0 #8f8880,
+    inset -2px -2px 0 #ffffff;
+}
+
+.retro-text-button:disabled,
+.retro-text-button[aria-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.72;
+  transform: none;
+}
+
+.retro-text-button--accent {
+  background: var(--retro-violet);
+  color: var(--retro-white);
+  box-shadow:
+    inset 2px 2px 0 #9b90ee,
+    inset -2px -2px 0 #34296f;
+}
