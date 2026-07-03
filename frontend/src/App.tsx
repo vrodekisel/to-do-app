@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { deleteTask, getTasks } from "./api/tasksApi";
-import { loginUser, logoutUser, getCurrentUsername, registerUser } from "./api/authApi";
+import {
+    loginUser,
+    logoutUser,
+    getCurrentUsername,
+    registerUser,
+} from "./api/authApi";
 import type { Task } from "./types/task";
 import { translations, type Language } from "./i18n/translations";
+
+import AppWindow from "./components/AppWindow";
 import TaskList from "./components/TaskList";
 import CreateTaskForm from "./components/CreateTaskForm";
 
@@ -17,7 +24,9 @@ function App() {
     const [authError, setAuthError] = useState<string | null>(null);
 
     const [isRegisterMode, setIsRegisterMode] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        !!localStorage.getItem("token")
+    );
 
     const [language, setLanguage] = useState<Language>("en");
 
@@ -29,15 +38,21 @@ function App() {
 
     function getLocalizedError(errorKey: string) {
         if (errorKey.startsWith("errors.")) {
-            const key = errorKey.replace("errors.", "") as keyof typeof t.errors;
+            const key = errorKey.replace(
+                "errors.",
+                ""
+            ) as keyof typeof t.errors;
+
             return t.errors[key] ?? errorKey;
         }
+
         return errorKey;
     }
 
     async function loadTasks() {
         try {
             setHasError(false);
+
             const tasksFromApi = await getTasks();
             setTasks(tasksFromApi);
         } catch (err) {
@@ -107,7 +122,7 @@ function App() {
 
     if (!isAuthenticated) {
         return (
-            <main>
+            <AppWindow>
                 <h1>{t.appTitle}</h1>
 
                 <div>
@@ -129,7 +144,9 @@ function App() {
                             placeholder={t.repeatPasswordPlaceholder}
                             type="password"
                             value={repeatPassword}
-                            onChange={(e) => setRepeatPassword(e.target.value)}
+                            onChange={(e) =>
+                                setRepeatPassword(e.target.value)
+                            }
                         />
                     )}
 
@@ -151,7 +168,9 @@ function App() {
 
                     <button
                         className="retro-text-button retro-text-button--secondary retro-text-button--auth"
-                        onClick={() => setIsRegisterMode(!isRegisterMode)}
+                        onClick={() =>
+                            setIsRegisterMode((prev) => !prev)
+                        }
                     >
                         {isRegisterMode
                             ? t.switchToLoginButton
@@ -162,12 +181,16 @@ function App() {
                         className="retro-text-button retro-text-button--lang"
                         onClick={toggleLanguage}
                     >
-                        {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
+                        {language === "en"
+                            ? t.languageSwitcherRu
+                            : t.languageSwitcherEn}
                     </button>
                 </div>
 
-                {authError && <p>{getLocalizedError(authError)}</p>}
-            </main>
+                {authError && (
+                    <p>{getLocalizedError(authError)}</p>
+                )}
+            </AppWindow>
         );
     }
 
@@ -189,7 +212,7 @@ function App() {
     }
 
     return (
-        <main>
+        <AppWindow>
             <h1>{t.appTitle}</h1>
 
             <div>
@@ -206,14 +229,19 @@ function App() {
                     className="retro-text-button retro-text-button--lang"
                     onClick={toggleLanguage}
                 >
-                    {language === "en" ? t.languageSwitcherRu : t.languageSwitcherEn}
+                    {language === "en"
+                        ? t.languageSwitcherRu
+                        : t.languageSwitcherEn}
                 </button>
             </div>
 
-            <CreateTaskForm language={language} onTaskCreated={loadTasks} />
+            <CreateTaskForm
+                language={language}
+                onTaskCreated={loadTasks}
+            />
 
             {content}
-        </main>
+        </AppWindow>
     );
 }
 
