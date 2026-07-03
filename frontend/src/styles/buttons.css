@@ -167,3 +167,69 @@
     inset 2px 2px 0 #9b90ee,
     inset -2px -2px 0 #34296f;
 }
+
+.retro-icon-button {
+    position: relative;
+
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+    image-rendering: pixelated;
+}
+
+.retro-icon-button__image {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+    width: 32px;
+    height: 32px;
+
+    pointer-events: none;
+    image-rendering: pixelated;
+}
+
+.retro-icon-button__image--hover,
+.retro-icon-button__image--active {
+    display: none;
+}
+
+.retro-icon-button:hover:not(:active)
+    .retro-icon-button__image--default {
+    display: none;
+}
+
+.retro-icon-button:hover:not(:active)
+    .retro-icon-button__image--hover {
+    display: block;
+}
+
+.retro-icon-button:active
+    .retro-icon-button__image--default,
+.retro-icon-button:active
+    .retro-icon-button__image--hover {
+    display: none;
+}
+
+.retro-icon-button:active
+    .retro-icon-button__image--active {
+    display: block;
+}
+
+.retro-icon-button:focus-visible {
+    outline: 2px solid var(--retro-black);
+    outline-offset: 2px;
+}
+
+.retro-icon-button:disabled {
+    cursor: default;
+    opacity: 0.55;
+}

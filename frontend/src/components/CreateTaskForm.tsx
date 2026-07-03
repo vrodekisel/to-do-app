@@ -2,6 +2,12 @@ import { useState, type FormEvent } from "react";
 import { createTask } from "../api/tasksApi";
 import { translations, type Language } from "../i18n/translations";
 
+import IconButton from "./ui/IconButton";
+
+import createDefault from "../assets/icons/create/create_default.svg";
+import createHover from "../assets/icons/create/create_hover.svg";
+import createActive from "../assets/icons/create/create_active.svg";
+
 type CreateTaskFormProps = {
     language: Language;
     onTaskCreated: () => void;
@@ -64,9 +70,13 @@ function CreateTaskForm({ language, onTaskCreated }: CreateTaskFormProps) {
 
             {errorKey ? <p>{t.errors[errorKey]}</p> : null}
 
-            <button type="submit">
-                {t.createTaskButton}
-            </button>
+           <IconButton
+                type="submit"
+                label={t.createTaskButton}
+                defaultIcon={createDefault}
+                hoverIcon={createHover}
+                activeIcon={createActive}
+            />
         </form>
     );
 }
