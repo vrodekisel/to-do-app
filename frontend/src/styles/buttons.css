@@ -233,3 +233,84 @@
     cursor: default;
     opacity: 0.55;
 }
+
+.retro-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.retro-checkbox__input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.retro-checkbox__visual {
+  position: relative;
+
+  display: block;
+  width: 32px;
+  height: 32px;
+
+  flex: 0 0 32px;
+}
+
+.retro-checkbox__image {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  width: 32px;
+  height: 32px;
+
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.retro-checkbox__image--hover,
+.retro-checkbox__image--checked {
+  display: none;
+}
+
+.retro-checkbox:hover
+  .retro-checkbox__input:not(:checked)
+  + .retro-checkbox__visual
+  .retro-checkbox__image--unchecked {
+  display: none;
+}
+
+.retro-checkbox:hover
+  .retro-checkbox__input:not(:checked)
+  + .retro-checkbox__visual
+  .retro-checkbox__image--hover {
+  display: block;
+}
+
+.retro-checkbox__input:checked
+  + .retro-checkbox__visual
+  .retro-checkbox__image--unchecked,
+.retro-checkbox__input:checked
+  + .retro-checkbox__visual
+  .retro-checkbox__image--hover {
+  display: none;
+}
+
+.retro-checkbox__input:checked
+  + .retro-checkbox__visual
+  .retro-checkbox__image--checked {
+  display: block;
+}
+
+.retro-checkbox__input:focus-visible
+  + .retro-checkbox__visual {
+  outline: 2px solid var(--retro-black);
+  outline-offset: 2px;
+}
