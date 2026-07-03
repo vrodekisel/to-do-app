@@ -9,30 +9,31 @@ type CreateTaskFormProps = {
 
 function CreateTaskForm({ language, onTaskCreated }: CreateTaskFormProps) {
     const t = translations[language];
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [errorKey, setErrorKey] = useState<"" | "TitleRequired">("");
+    const [errorKey, setErrorKey] = useState<"" | "titleRequired">("");
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
+
         const trimmedTitle = title.trim();
 
         if (!trimmedTitle) {
-            setErrorKey("TitleRequired");
+            setErrorKey("titleRequired");
             return;
         }
 
         try {
             await createTask({
                 title: trimmedTitle,
-                description,
+                description: description.trim(),
             });
 
             setTitle("");
             setDescription("");
             setErrorKey("");
             onTaskCreated();
-
         } catch (err) {
             console.error(err);
         }
@@ -41,6 +42,7 @@ function CreateTaskForm({ language, onTaskCreated }: CreateTaskFormProps) {
     return (
         <form onSubmit={handleSubmit}>
             <h2>{t.createTaskTitle}</h2>
+
             <input
                 type="text"
                 value={title}
@@ -60,9 +62,11 @@ function CreateTaskForm({ language, onTaskCreated }: CreateTaskFormProps) {
                 placeholder={t.descriptionPlaceholder}
             />
 
-            {errorKey ? <p>{t[errorKey]}</p> : null}
+            {errorKey ? <p>{t.errors[errorKey]}</p> : null}
 
-            <button type="submit">{t.createTaskButton}</button>
+            <button type="submit">
+                {t.createTaskButton}
+            </button>
         </form>
     );
 }
